@@ -6,8 +6,8 @@ ruoyi:
   version: 3.9.2
   # 版权年份
   copyrightYear: 2026
-  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: D:/ruoyi/uploadPath
+  # 文件路径，默认指向仓库内可复现的 demo 素材目录，可通过 RUOYI_PROFILE 覆盖
+  profile: ${RUOYI_PROFILE:${user.dir}/demo-assets/uploadPath}
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -16,7 +16,7 @@ ruoyi:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /
@@ -145,3 +145,13 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+plant:
+  assistant:
+    apiUrl: ${PLANT_ASSISTANT_API_URL:https://open.bigmodel.cn/api/paas/v4/chat/completions}
+    apiKey: ${BIGMODEL_API_KEY:2979623e4ff04ded8cdcc8683128ea27.BSODSfwHa2VxzZJG}
+    model: ${PLANT_ASSISTANT_MODEL:glm-4.5-air}
+    timeoutSeconds: ${PLANT_ASSISTANT_TIMEOUT_SECONDS:15}
+    reverseGeocodeUrl: ${PLANT_ASSISTANT_REVERSE_GEOCODE_URL:https://nominatim.openstreetmap.org/reverse}
+    weatherApiUrl: ${PLANT_ASSISTANT_WEATHER_API_URL:https://api.open-meteo.com/v1/forecast}
+    userAgent: ${PLANT_ASSISTANT_USER_AGENT:RuoYi-Plant-Demo/1.0}

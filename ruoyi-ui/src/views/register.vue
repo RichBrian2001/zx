@@ -1,5 +1,5 @@
 <template>
-  <div class="register">
+  <div class="register" :style="backgroundStyle">
     <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form">
       <h3 class="title">{{title}}</h3>
       <el-form-item prop="username">
@@ -90,6 +90,11 @@ export default {
     }
   },
   computed: {
+    backgroundStyle() {
+      return {
+        backgroundImage: `url(${process.env.BASE_URL}login-background.jpg?v=20260512)`
+      }
+    },
     registerRules() {
       return {
         username: [
@@ -156,7 +161,6 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
   background-size: cover;
 }
 .title {

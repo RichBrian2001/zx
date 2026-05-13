@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" :style="backgroundStyle">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">{{title}}</h3>
       <el-form-item prop="username">
@@ -98,6 +98,13 @@ export default {
       redirect: undefined
     }
   },
+  computed: {
+    backgroundStyle() {
+      return {
+        backgroundImage: `url(${process.env.BASE_URL}login-background.jpg?v=20260512)`
+      }
+    }
+  },
   watch: {
     $route: {
       handler: function(route) {
@@ -164,33 +171,77 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
+  position: relative;
   background-size: cover;
+  background-position: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(22, 44, 29, 0.34) 0%, rgba(54, 103, 68, 0.12) 45%, rgba(249, 248, 240, 0.12) 100%);
+  }
 }
+
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
-  color: #707070;
+  color: #2b4130;
+  letter-spacing: 1px;
 }
 
 .login-form {
-  border-radius: 6px;
-  background: #ffffff;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
   width: 400px;
-  padding: 25px 25px 5px 25px;
+  padding: 28px 28px 10px 28px;
   z-index: 1;
+  box-shadow: 0 24px 60px rgba(31, 55, 38, 0.18);
+  backdrop-filter: blur(8px);
+
   .el-input {
     height: 38px;
+
     input {
       height: 38px;
+      border-color: #d6e2d6;
+
+      &:focus {
+        border-color: #4f8a61;
+      }
     }
   }
+
   .input-icon {
     height: 39px;
     width: 14px;
     margin-left: 2px;
+    color: #6c8570;
+  }
+
+  ::v-deep .el-checkbox__input.is-checked .el-checkbox__inner,
+  ::v-deep .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #3d6e4c;
+    border-color: #3d6e4c;
+  }
+
+  ::v-deep .el-checkbox__label,
+  ::v-deep .el-form-item__error {
+    color: #4d5f51;
   }
 }
+
+.login-form ::v-deep .el-button--primary {
+  border-color: #3d6e4c;
+  background: linear-gradient(135deg, #3f7450 0%, #507f5d 100%);
+
+  &:hover,
+  &:focus {
+    border-color: #315e3f;
+    background: linear-gradient(135deg, #315e3f 0%, #4b7256 100%);
+  }
+}
+
 .login-tip {
   font-size: 13px;
   text-align: center;
@@ -216,7 +267,10 @@ export default {
   font-family: Arial;
   font-size: 12px;
   letter-spacing: 1px;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(20, 28, 18, 0.35);
 }
+
 .login-code-img {
   height: 38px;
 }

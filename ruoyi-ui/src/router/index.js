@@ -62,23 +62,77 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '',
-    component: Layout,
-    redirect: 'index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/index'),
-        name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
-    ]
+    path: '/',
+    hidden: true,
+    redirect: '/index'
   },
   {
     path: '/lock',
     component: () => import('@/views/lock'),
     hidden: true,
     meta: { title: '锁定屏幕' }
+  },
+  {
+    path: '/plant-demo',
+    component: () => import('@/views/plant/demo/Layout'),
+    redirect: '/plant-demo/home',
+    hidden: true,
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/plant/demo/Home'),
+        name: 'PlantDemoHome',
+        meta: { title: '植选植物推荐' }
+      },
+      {
+        path: 'plants',
+        component: () => import('@/views/plant/demo/Plants'),
+        name: 'PlantDemoPlants',
+        meta: { title: '所有植物' }
+      },
+      {
+        path: 'questionnaire',
+        component: () => import('@/views/plant/demo/Questionnaire'),
+        name: 'PlantDemoQuestionnaire',
+        meta: { title: '植物问卷' }
+      },
+      {
+        path: 'assistant',
+        component: () => import('@/views/plant/demo/Assistant'),
+        name: 'PlantDemoAssistant',
+        meta: { title: '植物百科问答' }
+      },
+      {
+        path: 'result/:recordId',
+        component: () => import('@/views/plant/demo/Result'),
+        name: 'PlantDemoResult',
+        meta: { title: '推荐结果' }
+      },
+      {
+        path: 'plant/:plantId',
+        component: () => import('@/views/plant/demo/PlantDetail'),
+        name: 'PlantDemoPlantDetail',
+        meta: { title: '植物详情' }
+      },
+      {
+        path: 'history',
+        component: () => import('@/views/plant/demo/History'),
+        name: 'PlantDemoHistory',
+        meta: { title: '推荐历史' }
+      },
+      {
+        path: 'favorite',
+        component: () => import('@/views/plant/demo/Favorite'),
+        name: 'PlantDemoFavorite',
+        meta: { title: '植物收藏' }
+      },
+      {
+        path: 'feedback/:recordId',
+        component: () => import('@/views/plant/demo/Feedback'),
+        name: 'PlantDemoFeedback',
+        meta: { title: '推荐反馈' }
+      }
+    ]
   },
   {
     path: '/user',
@@ -98,6 +152,74 @@ export const constantRoutes = [
 
 // 动态路由，基于用户权限动态去加载
 export const dynamicRoutes = [
+  {
+    path: '/plant-admin/rule-hidden',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:rule:add', 'plant:rule:edit'],
+    children: [
+      {
+        path: '/plant-admin/rule/add',
+        component: () => import('@/views/plant/admin/rule/form'),
+        name: 'PlantAdminRuleAdd',
+        meta: { title: '新增推荐规则', activeMenu: '/plant-admin/rule' }
+      },
+      {
+        path: '/plant-admin/rule/edit/:ruleId(\\d+)',
+        component: () => import('@/views/plant/admin/rule/form'),
+        name: 'PlantAdminRuleEdit',
+        meta: { title: '编辑推荐规则', activeMenu: '/plant-admin/rule' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/plant-hidden',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:plant:add', 'plant:plant:edit'],
+    children: [
+      {
+        path: '/plant-admin/plant/add',
+        component: () => import('@/views/plant/admin/plant/form'),
+        name: 'PlantAdminPlantAdd',
+        meta: { title: '新增植物', activeMenu: '/plant-admin/plant' }
+      },
+      {
+        path: '/plant-admin/plant/edit/:plantId(\\d+)',
+        component: () => import('@/views/plant/admin/plant/form'),
+        name: 'PlantAdminPlantEdit',
+        meta: { title: '编辑植物', activeMenu: '/plant-admin/plant' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/plant/detail',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:plant:detail'],
+    children: [
+      {
+        path: ':plantId(\\d+)',
+        component: () => import('@/views/plant/admin/plantDetail/index'),
+        name: 'PlantAdminPlantDetail',
+        meta: { title: '植物详情', activeMenu: '/plant-admin/plant' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/plant-care',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:plant:care'],
+    children: [
+      {
+        path: ':plantId(\\d+)',
+        component: () => import('@/views/plant/admin/plantCare/index'),
+        name: 'PlantCareConfig',
+        meta: { title: '养护配置', activeMenu: '/plant-admin/plant' }
+      }
+    ]
+  },
   {
     path: '/system/user-auth',
     component: Layout,
@@ -165,6 +287,68 @@ export const dynamicRoutes = [
         component: () => import('@/views/tool/gen/editTable'),
         name: 'GenEdit',
         meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/plant-tag',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:plant:tag'],
+    children: [
+      {
+        path: ':plantId(\\d+)',
+        component: () => import('@/views/plant/admin/plantTag/index'),
+        name: 'PlantTagConfig',
+        meta: { title: '植物标签配置', activeMenu: '/plant-admin/plant' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/profile/detail',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:profile:detail'],
+    children: [
+      {
+        path: ':profileId(\\d+)',
+        component: () => import('@/views/plant/admin/profile/detail'),
+        name: 'PlantProfileDetail',
+        meta: { title: '画像详情', activeMenu: '/plant-admin/profile' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/recommend/detail',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:recommend:detail'],
+    children: [
+      {
+        path: ':recordId(\\d+)',
+        component: () => import('@/views/plant/admin/recommend/detail'),
+        name: 'PlantRecommendDetail',
+        meta: { title: '推荐记录详情', activeMenu: '/plant-admin/recommend' }
+      }
+    ]
+  },
+  {
+    path: '/plant-admin/article-hidden',
+    component: Layout,
+    hidden: true,
+    permissions: ['plant:article:add', 'plant:article:edit'],
+    children: [
+      {
+        path: '/plant-admin/article/add',
+        component: () => import('@/views/plant/admin/article/form'),
+        name: 'PlantArticleAdd',
+        meta: { title: '新增内容', activeMenu: '/plant-admin/article' }
+      },
+      {
+        path: '/plant-admin/article/edit/:articleId(\\d+)',
+        component: () => import('@/views/plant/admin/article/form'),
+        name: 'PlantArticleEdit',
+        meta: { title: '编辑内容', activeMenu: '/plant-admin/article' }
       }
     ]
   }

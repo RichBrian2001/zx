@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxQuestionnaireRecordMapper">
+
+    <resultMap type="ZxQuestionnaireRecord" id="ZxQuestionnaireRecordResult">
+        <id property="questionnaireId" column="questionnaire_id" />
+        <result property="visitorUid" column="visitor_uid" />
+        <result property="sourceTerminal" column="source_terminal" />
+        <result property="sourceChannel" column="source_channel" />
+        <result property="answerJson" column="answer_json" />
+        <result property="environmentSummary" column="environment_summary" />
+        <result property="preferenceSummary" column="preference_summary" />
+        <result property="budgetValue" column="budget_value" />
+        <result property="submitIp" column="submit_ip" />
+        <result property="submitTime" column="submit_time" />
+    </resultMap>
+
+    <insert id="insertZxQuestionnaireRecord" parameterType="ZxQuestionnaireRecord" useGeneratedKeys="true" keyProperty="questionnaireId">
+        insert into zx_questionnaire_record (visitor_uid, source_terminal, source_channel, answer_json, environment_summary, preference_summary, budget_value, submit_ip, submit_time)
+        values (#{visitorUid}, #{sourceTerminal}, #{sourceChannel}, #{answerJson}, #{environmentSummary}, #{preferenceSummary}, #{budgetValue}, #{submitIp}, #{submitTime})
+    </insert>
+
+    <select id="selectZxQuestionnaireRecordById" parameterType="Long" resultMap="ZxQuestionnaireRecordResult">
+        select questionnaire_id, visitor_uid, source_terminal, source_channel, answer_json, environment_summary,
+               preference_summary, budget_value, submit_ip, submit_time
+        from zx_questionnaire_record
+        where questionnaire_id = #{questionnaireId}
+    </select>
+
+</mapper>

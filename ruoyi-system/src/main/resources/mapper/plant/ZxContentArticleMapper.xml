@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxContentArticleMapper">
+
+    <resultMap type="ZxContentArticle" id="ZxContentArticleResult">
+        <id property="articleId" column="article_id" />
+        <result property="articleType" column="article_type" />
+        <result property="title" column="title" />
+        <result property="coverImage" column="cover_image" />
+        <result property="summary" column="summary" />
+        <result property="content" column="content" />
+        <result property="relatedPlantId" column="related_plant_id" />
+        <result property="relatedPlantName" column="related_plant_name" />
+        <result property="status" column="status" />
+        <result property="sortOrder" column="sort_order" />
+        <result property="publishTime" column="publish_time" />
+        <result property="delFlag" column="del_flag" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="selectZxContentArticleVo">
+        select a.article_id, a.article_type, a.title, a.cover_image, a.summary, cast(a.content as char) as content,
+               a.related_plant_id, p.plant_name as related_plant_name, a.status, a.sort_order, a.publish_time,
+               a.del_flag, a.create_by, a.create_time, a.update_by, a.update_time, a.remark
+        from zx_content_article a
+        left join zx_plant p on a.related_plant_id = p.plant_id
+    </sql>
+
+    <select id="selectZxContentArticleList" parameterType="ZxContentArticle" resultMap="ZxContentArticleResult">
+        <include refid="selectZxContentArticleVo" />
+        where a.del_flag = '0'
+        <if test="title != null and title != ''">and a.title like concat('%', #{title}, '%')</if>
+        <if test="articleType != null and articleType != ''">and a.article_type = #{articleType}</if>
+        <if test="status != null and status != ''">and a.status = #{status}</if>
+        <if test="relatedPlantId != null">and a.related_plant_id = #{relatedPlantId}</if>
+        <if test="params.beginTime != null and params.beginTime != ''">and a.publish_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null and params.endTime != ''">and a.publish_time &lt;= #{params.endTime}</if>
+        order by a.sort_order, a.article_id desc
+    </select>
+
+    <select id="selectZxContentArticleById" parameterType="Long" resultMap="ZxContentArticleResult">
+        <include refid="selectZxContentArticleVo" />
+        where a.article_id = #{articleId}
+    </select>
+
+    <insert id="insertZxContentArticle" parameterType="ZxContentArticle" useGeneratedKeys="true" keyProperty="articleId">
+        insert into zx_content_article (article_type, title, cover_image, summary, content, related_plant_id, status, sort_order, publish_time, remark, create_by, create_time)
+        values (#{articleType}, #{title}, #{coverImage}, #{summary}, #{content}, #{relatedPlantId}, #{status}, #{sortOrder}, #{publishTime}, #{remark}, #{createBy}, sysdate())
+    </insert>
+
+    <update id="updateZxContentArticle" parameterType="ZxContentArticle">
+        update zx_content_article
+        set article_type = #{articleType},
+            title = #{title},
+            cover_image = #{coverImage},
+            summary = #{summary},
+            content = #{content},
+            related_plant_id = #{relatedPlantId},
+            status = #{status},
+            sort_order = #{sortOrder},
+            publish_time = #{publishTime},
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_time = sysdate()
+        where article_id = #{articleId}
+    </update>
+
+    <delete id="deleteZxContentArticleByIds" parameterType="Long">
+        update zx_content_article set del_flag = '2' where article_id in
+        <foreach collection="array" item="articleId" open="(" separator="," close=")">
+            #{articleId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,27 @@
+<svg width="640" height="480" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" rx="40" fill="#EEF4E8"/>
+  <rect x="44" y="44" width="552" height="392" rx="30" fill="#F9F6EF"/>
+  <rect x="84" y="96" width="172" height="208" rx="16" fill="#E2ECDD"/>
+  <path d="M136 168H206" stroke="#F9F6EF" stroke-width="8"/>
+  <path d="M172 132V268" stroke="#F9F6EF" stroke-width="8"/>
+  <path d="M306 310L246 244" stroke="#6E5439" stroke-width="10" stroke-linecap="round"/>
+  <path d="M332 308L330 208" stroke="#6E5439" stroke-width="10" stroke-linecap="round"/>
+  <path d="M356 310L410 238" stroke="#6E5439" stroke-width="10" stroke-linecap="round"/>
+  <path d="M226 218C246 184 280 176 316 192C300 236 274 262 236 276L210 252L226 218Z" fill="#2E6B4F"/>
+  <path d="M314 122C346 98 390 112 422 150C394 194 354 222 314 216L290 172L314 122Z" fill="#72B06A"/>
+  <path d="M352 210C384 182 428 186 460 226C430 270 392 298 352 290L330 246L352 210Z" fill="#5C9E66"/>
+  <path d="M290 158L266 260" stroke="#F1F5EA" stroke-width="5"/>
+  <path d="M364 124L336 214" stroke="#F1F5EA" stroke-width="5"/>
+  <path d="M394 214L370 286" stroke="#F1F5EA" stroke-width="5"/>
+  <ellipse cx="278" cy="196" rx="14" ry="32" fill="#F1F5EA"/>
+  <ellipse cx="300" cy="214" rx="12" ry="26" fill="#F1F5EA"/>
+  <ellipse cx="364" cy="158" rx="14" ry="32" fill="#F1F5EA"/>
+  <ellipse cx="386" cy="174" rx="12" ry="28" fill="#F1F5EA"/>
+  <ellipse cx="394" cy="242" rx="14" ry="32" fill="#F1F5EA"/>
+  <ellipse cx="418" cy="256" rx="12" ry="28" fill="#F1F5EA"/>
+  <rect x="254" y="298" width="156" height="96" rx="22" fill="#D09463"/>
+  <path d="M236 300C236 290 244 282 254 282H410C420 282 428 290 428 300V320H236V300Z" fill="#C78353"/>
+  <rect x="278" y="394" width="108" height="16" fill="#DDD8CD"/>
+  <rect x="44" y="404" width="552" height="52" fill="#E2CDA9"/>
+  <text x="92" y="376" fill="#24412B" font-family="Microsoft YaHei, sans-serif" font-size="20">无封面时将展示默认植物图</text>
+</svg>

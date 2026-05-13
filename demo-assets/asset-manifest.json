@@ -1,0 +1,293 @@
+{
+  "generatedAt": "deterministic-script",
+  "runtimeUploadPath": "/profile/upload",
+  "plantAssets": [
+    {
+      "plantId": 1001,
+      "plantName": "绿萝",
+      "path": "/profile/upload/plant/1001.jpg"
+    },
+    {
+      "plantId": 1002,
+      "plantName": "吊兰",
+      "path": "/profile/upload/plant/1002.jpg"
+    },
+    {
+      "plantId": 1003,
+      "plantName": "虎皮兰",
+      "path": "/profile/upload/plant/1003.jpg"
+    },
+    {
+      "plantId": 1004,
+      "plantName": "龟背竹",
+      "path": "/profile/upload/plant/1004.jpg"
+    },
+    {
+      "plantId": 1005,
+      "plantName": "发财树",
+      "path": "/profile/upload/plant/1005.jpg"
+    },
+    {
+      "plantId": 1006,
+      "plantName": "白掌",
+      "path": "/profile/upload/plant/1006.jpg"
+    },
+    {
+      "plantId": 1007,
+      "plantName": "常春藤",
+      "path": "/profile/upload/plant/1007.jpg"
+    },
+    {
+      "plantId": 1008,
+      "plantName": "橡皮树",
+      "path": "/profile/upload/plant/1008.jpg"
+    },
+    {
+      "plantId": 1009,
+      "plantName": "文竹",
+      "path": "/profile/upload/plant/1009.jpg"
+    },
+    {
+      "plantId": 1010,
+      "plantName": "茉莉花",
+      "path": "/profile/upload/plant/1010.jpg"
+    },
+    {
+      "plantId": 1011,
+      "plantName": "薄荷",
+      "path": "/profile/upload/plant/1011.jpg"
+    },
+    {
+      "plantId": 1012,
+      "plantName": "玉露",
+      "path": "/profile/upload/plant/1012.jpg"
+    },
+    {
+      "plantId": 1013,
+      "plantName": "金钱树",
+      "path": "/profile/upload/plant/1013.jpg"
+    },
+    {
+      "plantId": 1014,
+      "plantName": "袖珍椰子",
+      "path": "/profile/upload/plant/1014.jpg"
+    },
+    {
+      "plantId": 1015,
+      "plantName": "豆瓣绿",
+      "path": "/profile/upload/plant/1015.jpg"
+    },
+    {
+      "plantId": 1016,
+      "plantName": "鸟巢蕨",
+      "path": "/profile/upload/plant/1016.jpg"
+    },
+    {
+      "plantId": 1017,
+      "plantName": "迷迭香",
+      "path": "/profile/upload/plant/1017.jpg"
+    },
+    {
+      "plantId": 1018,
+      "plantName": "琴叶榕",
+      "path": "/profile/upload/plant/1018.jpg"
+    },
+    {
+      "plantId": 1019,
+      "plantName": "孔雀竹芋",
+      "path": "/profile/upload/plant/1019.jpg"
+    },
+    {
+      "plantId": 1020,
+      "plantName": "散尾葵",
+      "path": "/profile/upload/plant/1020.jpg"
+    },
+    {
+      "plantId": 1021,
+      "plantName": "富贵竹",
+      "path": "/profile/upload/plant/1021.jpg"
+    },
+    {
+      "plantId": 1022,
+      "plantName": "鹿角蕨",
+      "path": "/profile/upload/plant/1022.jpg"
+    },
+    {
+      "plantId": 1023,
+      "plantName": "合果芋",
+      "path": "/profile/upload/plant/1023.jpg"
+    },
+    {
+      "plantId": 1024,
+      "plantName": "冷水花",
+      "path": "/profile/upload/plant/1024.jpg"
+    },
+    {
+      "plantId": 1025,
+      "plantName": "姬龟背竹",
+      "path": "/profile/upload/plant/1025.jpg"
+    },
+    {
+      "plantId": 1026,
+      "plantName": "芦荟",
+      "path": "/profile/upload/plant/1026.jpg"
+    },
+    {
+      "plantId": 1027,
+      "plantName": "铜钱草",
+      "path": "/profile/upload/plant/1027.jpg"
+    },
+    {
+      "plantId": 1028,
+      "plantName": "长寿花",
+      "path": "/profile/upload/plant/1028.jpg"
+    },
+    {
+      "plantId": 1029,
+      "plantName": "四季海棠",
+      "path": "/profile/upload/plant/1029.jpg"
+    },
+    {
+      "plantId": 1030,
+      "plantName": "天竺葵",
+      "path": "/profile/upload/plant/1030.jpg"
+    },
+    {
+      "plantId": 1031,
+      "plantName": "口红吊兰",
+      "path": "/profile/upload/plant/1031.jpg"
+    },
+    {
+      "plantId": 1032,
+      "plantName": "球兰",
+      "path": "/profile/upload/plant/1032.jpg"
+    },
+    {
+      "plantId": 1033,
+      "plantName": "空气凤梨",
+      "path": "/profile/upload/plant/1033.jpg"
+    },
+    {
+      "plantId": 1034,
+      "plantName": "网纹草",
+      "path": "/profile/upload/plant/1034.jpg"
+    },
+    {
+      "plantId": 1035,
+      "plantName": "铁线蕨",
+      "path": "/profile/upload/plant/1035.jpg"
+    },
+    {
+      "plantId": 1036,
+      "plantName": "龙血树",
+      "path": "/profile/upload/plant/1036.jpg"
+    },
+    {
+      "plantId": 1037,
+      "plantName": "巴西木",
+      "path": "/profile/upload/plant/1037.jpg"
+    },
+    {
+      "plantId": 1038,
+      "plantName": "春羽",
+      "path": "/profile/upload/plant/1038.jpg"
+    },
+    {
+      "plantId": 1039,
+      "plantName": "绿宝石喜林芋",
+      "path": "/profile/upload/plant/1039.jpg"
+    },
+    {
+      "plantId": 1040,
+      "plantName": "酒瓶兰",
+      "path": "/profile/upload/plant/1040.jpg"
+    },
+    {
+      "plantId": 1041,
+      "plantName": "栀子花",
+      "path": "/profile/upload/plant/1041.jpg"
+    },
+    {
+      "plantId": 1042,
+      "plantName": "薰衣草",
+      "path": "/profile/upload/plant/1042.jpg"
+    },
+    {
+      "plantId": 1043,
+      "plantName": "百里香",
+      "path": "/profile/upload/plant/1043.jpg"
+    },
+    {
+      "plantId": 1044,
+      "plantName": "罗勒",
+      "path": "/profile/upload/plant/1044.jpg"
+    },
+    {
+      "plantId": 1045,
+      "plantName": "柠檬香蜂草",
+      "path": "/profile/upload/plant/1045.jpg"
+    },
+    {
+      "plantId": 1046,
+      "plantName": "非洲堇",
+      "path": "/profile/upload/plant/1046.jpg"
+    },
+    {
+      "plantId": 1047,
+      "plantName": "银皇后",
+      "path": "/profile/upload/plant/1047.jpg"
+    }
+  ],
+  "articleAssets": [
+    {
+      "slug": "bedroom",
+      "title": "北向卧室如何选第一盆绿植",
+      "path": "/profile/upload/article/bedroom.jpg"
+    },
+    {
+      "slug": "office",
+      "title": "办公室绿植 5 日养护法",
+      "path": "/profile/upload/article/office.jpg"
+    },
+    {
+      "slug": "balcony",
+      "title": "阳台花香植物入门清单",
+      "path": "/profile/upload/article/balcony.jpg"
+    },
+    {
+      "slug": "pet",
+      "title": "猫咪家庭绿植避坑清单",
+      "path": "/profile/upload/article/pet.jpg"
+    },
+    {
+      "slug": "office-lowlight",
+      "title": "低光办公室别只盯绿萝",
+      "path": "/profile/upload/article/office-lowlight.jpg"
+    },
+    {
+      "slug": "living",
+      "title": "客厅大叶植物陈设的 3 个层次位",
+      "path": "/profile/upload/article/living.jpg"
+    },
+    {
+      "slug": "desktop",
+      "title": "桌面小体量植物组合指南",
+      "path": "/profile/upload/article/desktop.jpg"
+    },
+    {
+      "slug": "aroma",
+      "title": "迷迭香、茉莉和薄荷怎么选",
+      "path": "/profile/upload/article/aroma.jpg"
+    }
+  ],
+  "importAssets": [
+    {
+      "importType": "plant_basic",
+      "path": "/profile/upload/import/plant_basic_demo.xlsx"
+    },
+    {
+      "importType": "tag_basic",
+      "path": "/profile/upload/import/plant_tag_demo.xlsx"
+    }
+  ]
+}

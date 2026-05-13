@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxFavoriteRecordMapper">
+
+    <resultMap type="ZxFavoriteRecord" id="ZxFavoriteRecordResult">
+        <id property="favoriteId" column="favorite_id" />
+        <result property="visitorUid" column="visitor_uid" />
+        <result property="plantId" column="plant_id" />
+        <result property="plantName" column="plant_name" />
+        <result property="coverImage" column="cover_image" />
+        <result property="plantSummary" column="plant_summary" />
+        <result property="difficultyLevel" column="difficulty_level" />
+        <result property="priceLevel" column="price_level" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" />
+        <result property="cancelTime" column="cancel_time" />
+    </resultMap>
+
+    <select id="selectZxFavoriteRecordList" parameterType="ZxFavoriteRecord" resultMap="ZxFavoriteRecordResult">
+        select f.favorite_id, f.visitor_uid, f.plant_id, p.plant_name, p.cover_image, p.plant_summary,
+               p.difficulty_level, p.price_level, f.status, f.create_time, f.cancel_time
+        from zx_favorite_record f
+        left join zx_plant p on f.plant_id = p.plant_id
+        where f.status = '0'
+        <if test="visitorUid != null and visitorUid != ''">and f.visitor_uid = #{visitorUid}</if>
+        order by f.create_time desc, f.favorite_id desc
+    </select>
+
+    <select id="selectActiveFavorite" resultMap="ZxFavoriteRecordResult">
+        select favorite_id, visitor_uid, plant_id, status, create_time, cancel_time
+        from zx_favorite_record
+        where visitor_uid = #{visitorUid} and plant_id = #{plantId} and status = '0'
+        order by favorite_id desc limit 1
+    </select>
+
+    <insert id="insertZxFavoriteRecord" parameterType="ZxFavoriteRecord" useGeneratedKeys="true" keyProperty="favoriteId">
+        insert into zx_favorite_record (visitor_uid, plant_id, status, create_time)
+        values (#{visitorUid}, #{plantId}, #{status}, sysdate())
+    </insert>
+
+    <update id="cancelFavorite">
+        update zx_favorite_record
+        set status = '1', cancel_time = sysdate()
+        where visitor_uid = #{visitorUid} and plant_id = #{plantId} and status = '0'
+    </update>
+
+</mapper>

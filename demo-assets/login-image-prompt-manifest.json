@@ -1,0 +1,18 @@
+{
+  "version": "2026-05-12.1",
+  "generationPreset": {
+    "size": "1792x1024",
+    "quality": "hd",
+    "watermarkEnabled": false
+  },
+  "template": "",
+  "items": [
+    {
+      "plantId": 9901,
+      "plantName": "登录背景图",
+      "detailFeature": "绿色草地、晨雾、柔光、横构图扩展背景",
+      "repoRelativePath": "ruoyi-ui/src/assets/images/login-background.jpg",
+      "prompt": "基于一张竖构图参考图进行横向扩展后的超清背景摄影效果：清晨薄雾中的绿色起伏草地与远处柔和山脊，整体色调为鼠尾草绿、浅金色晨光与奶油白雾气，画面安静、清新、朦胧、具有呼吸感。请保留大面积可用于登录表单叠加的干净留白，不要出现人物、建筑、道路、动物、文字、logo、水印或明显人工结构。强调原图基础上的自然延展感、超分辨率、真实草叶纹理、雾气层次、柔和逆光、电影级景深、自然高端质感。"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxDataImportTaskMapper">
+
+    <resultMap type="ZxDataImportTask" id="ZxDataImportTaskResult">
+        <id property="taskId" column="task_id" />
+        <result property="taskName" column="task_name" />
+        <result property="importType" column="import_type" />
+        <result property="fileName" column="file_name" />
+        <result property="fileUrl" column="file_url" />
+        <result property="totalCount" column="total_count" />
+        <result property="successCount" column="success_count" />
+        <result property="failCount" column="fail_count" />
+        <result property="status" column="status" />
+        <result property="resultMessage" column="result_message" />
+        <result property="executeTime" column="execute_time" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="selectZxDataImportTaskVo">
+        select task_id, task_name, import_type, file_name, file_url, total_count, success_count, fail_count,
+               status, result_message, execute_time, create_by, create_time, update_by, update_time, remark
+        from zx_data_import_task
+    </sql>
+
+    <select id="selectZxDataImportTaskList" parameterType="ZxDataImportTask" resultMap="ZxDataImportTaskResult">
+        <include refid="selectZxDataImportTaskVo" />
+        where 1 = 1
+        <if test="taskName != null and taskName != ''">and task_name like concat('%', #{taskName}, '%')</if>
+        <if test="importType != null and importType != ''">and import_type = #{importType}</if>
+        <if test="status != null and status != ''">and status = #{status}</if>
+        <if test="params.beginTime != null and params.beginTime != ''">and execute_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null and params.endTime != ''">and execute_time &lt;= #{params.endTime}</if>
+        order by create_time desc, task_id desc
+    </select>
+
+    <select id="selectZxDataImportTaskById" parameterType="Long" resultMap="ZxDataImportTaskResult">
+        <include refid="selectZxDataImportTaskVo" />
+        where task_id = #{taskId}
+    </select>
+
+    <insert id="insertZxDataImportTask" parameterType="ZxDataImportTask" useGeneratedKeys="true" keyProperty="taskId">
+        insert into zx_data_import_task (task_name, import_type, file_name, file_url, total_count, success_count, fail_count, status, result_message, execute_time, create_by, create_time, remark)
+        values (#{taskName}, #{importType}, #{fileName}, #{fileUrl}, #{totalCount}, #{successCount}, #{failCount}, #{status}, #{resultMessage}, #{executeTime}, #{createBy}, sysdate(), #{remark})
+    </insert>
+
+    <update id="updateZxDataImportTask" parameterType="ZxDataImportTask">
+        update zx_data_import_task
+        set task_name = #{taskName},
+            import_type = #{importType},
+            file_name = #{fileName},
+            file_url = #{fileUrl},
+            total_count = #{totalCount},
+            success_count = #{successCount},
+            fail_count = #{failCount},
+            status = #{status},
+            result_message = #{resultMessage},
+            execute_time = #{executeTime},
+            update_by = #{updateBy},
+            update_time = sysdate(),
+            remark = #{remark}
+        where task_id = #{taskId}
+    </update>
+
+</mapper>

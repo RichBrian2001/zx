@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxRecommendRecordMapper">
+
+    <resultMap type="ZxRecommendRecord" id="ZxRecommendRecordResult">
+        <id property="recordId" column="record_id" />
+        <result property="visitorUid" column="visitor_uid" />
+        <result property="questionnaireId" column="questionnaire_id" />
+        <result property="profileId" column="profile_id" />
+        <result property="requestJson" column="request_json" />
+        <result property="resultJson" column="result_json" />
+        <result property="matchRuleJson" column="match_rule_json" />
+        <result property="topPlantId" column="top_plant_id" />
+        <result property="topPlantName" column="top_plant_name" />
+        <result property="totalCandidateCount" column="total_candidate_count" />
+        <result property="resultCount" column="result_count" />
+        <result property="sourceTerminal" column="source_terminal" />
+        <result property="recommendTime" column="recommend_time" />
+    </resultMap>
+
+    <resultMap type="ZxRecommendItem" id="ZxRecommendItemResult">
+        <id property="itemId" column="item_id" />
+        <result property="recordId" column="record_id" />
+        <result property="plantId" column="plant_id" />
+        <result property="plantName" column="plant_name" />
+        <result property="scoreTotal" column="score_total" />
+        <result property="scoreDetailJson" column="score_detail_json" />
+        <result property="rankNum" column="rank_num" />
+        <result property="reasonText" column="reason_text" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <sql id="selectZxRecommendRecordVo">
+        select r.record_id, r.visitor_uid, r.questionnaire_id, r.profile_id, r.request_json, r.result_json,
+               r.match_rule_json, r.top_plant_id, p.plant_name as top_plant_name, r.total_candidate_count,
+               r.result_count, r.source_terminal, r.recommend_time
+        from zx_recommend_record r
+        left join zx_plant p on r.top_plant_id = p.plant_id
+    </sql>
+
+    <select id="selectZxRecommendRecordList" parameterType="ZxRecommendRecord" resultMap="ZxRecommendRecordResult">
+        <include refid="selectZxRecommendRecordVo" />
+        where 1 = 1
+        <if test="visitorUid != null and visitorUid != ''">and r.visitor_uid like concat('%', #{visitorUid}, '%')</if>
+        <if test="questionnaireId != null">and r.questionnaire_id = #{questionnaireId}</if>
+        <if test="profileId != null">and r.profile_id = #{profileId}</if>
+        <if test="topPlantId != null">and r.top_plant_id = #{topPlantId}</if>
+        <if test="sourceTerminal != null and sourceTerminal != ''">and r.source_terminal = #{sourceTerminal}</if>
+        <if test="params.beginTime != null and params.beginTime != ''">and r.recommend_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null and params.endTime != ''">and r.recommend_time &lt;= #{params.endTime}</if>
+        order by r.recommend_time desc, r.record_id desc
+    </select>
+
+    <select id="selectZxRecommendRecordById" parameterType="Long" resultMap="ZxRecommendRecordResult">
+        <include refid="selectZxRecommendRecordVo" />
+        where r.record_id = #{recordId}
+    </select>
+
+    <select id="selectZxRecommendItemListByRecordId" parameterType="Long" resultMap="ZxRecommendItemResult">
+        select i.item_id, i.record_id, i.plant_id, p.plant_name, i.score_total, i.score_detail_json, i.rank_num,
+               i.reason_text, i.create_time
+        from zx_recommend_item i
+        left join zx_plant p on i.plant_id = p.plant_id
+        where i.record_id = #{recordId}
+        order by i.rank_num asc, i.item_id asc
+    </select>
+
+    <insert id="insertZxRecommendRecord" parameterType="ZxRecommendRecord" useGeneratedKeys="true" keyProperty="recordId">
+        insert into zx_recommend_record (visitor_uid, questionnaire_id, profile_id, request_json, result_json, match_rule_json, top_plant_id, total_candidate_count, result_count, source_terminal, recommend_time)
+        values (#{visitorUid}, #{questionnaireId}, #{profileId}, #{requestJson}, #{resultJson}, #{matchRuleJson}, #{topPlantId}, #{totalCandidateCount}, #{resultCount}, #{sourceTerminal}, #{recommendTime})
+    </insert>
+
+    <insert id="batchInsertZxRecommendItem" parameterType="java.util.List">
+        insert into zx_recommend_item (record_id, plant_id, score_total, score_detail_json, rank_num, reason_text, create_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.recordId}, #{item.plantId}, #{item.scoreTotal}, #{item.scoreDetailJson}, #{item.rankNum}, #{item.reasonText}, sysdate())
+        </foreach>
+    </insert>
+
+</mapper>

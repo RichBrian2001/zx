@@ -1,9 +1,35 @@
 import defaultSettings from '@/settings'
 import { useDynamicTitle } from '@/utils/dynamicTitle'
 
+const STORAGE_KEY = 'layout-setting'
+const persistedSettingKeys = ['theme', 'sideTheme', 'navType', 'tagsView', 'tagsViewPersist', 'tagsIcon', 'tagsViewStyle', 'fixedHeader', 'sidebarLogo', 'dynamicTitle', 'footerVisible']
 const { sideTheme, showSettings, navType, tagsView, tagsViewPersist, tagsIcon, tagsViewStyle, fixedHeader, sidebarLogo, dynamicTitle, footerVisible, footerContent } = defaultSettings
 
-const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
+function getStoredLayoutSetting() {
+  const rawSetting = localStorage.getItem(STORAGE_KEY)
+  if (!rawSetting) {
+    return {}
+  }
+  try {
+    return JSON.parse(rawSetting) || {}
+  } catch (error) {
+    localStorage.removeItem(STORAGE_KEY)
+    return {}
+  }
+}
+
+function buildLayoutSetting(state) {
+  return persistedSettingKeys.reduce((result, key) => {
+    result[key] = state[key]
+    return result
+  }, {})
+}
+
+function persistLayoutSetting(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(buildLayoutSetting(state)))
+}
+
+const storageSetting = getStoredLayoutSetting()
 const state = {
   title: '',
   theme: storageSetting.theme || '#409EFF',
@@ -33,8 +59,15 @@ const mutations = {
 
 const actions = {
   // 修改布局设置
-  changeSetting({ commit }, data) {
+  changeSetting({ commit, state }, data) {
     commit('CHANGE_SETTING', data)
+    if (persistedSettingKeys.includes(data.key)) {
+      persistLayoutSetting(state)
+    }
+  },
+  // 持久化当前布局设置
+  persistSettings({ state }) {
+    persistLayoutSetting(state)
   },
   // 设置网页标题
   setTitle({ commit }, title) {

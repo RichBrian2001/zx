@@ -1,5 +1,8 @@
 package com.ruoyi.common.config;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -62,7 +65,7 @@ public class RuoYiConfig
 
     public static String getProfile()
     {
-        return profile;
+        return resolveProfilePath(profile);
     }
 
     public void setProfile(String profile)
@@ -118,5 +121,32 @@ public class RuoYiConfig
     public static String getUploadPath()
     {
         return getProfile() + "/upload";
+    }
+
+    private static String resolveProfilePath(String configuredProfile)
+    {
+        if (configuredProfile == null || configuredProfile.trim().isEmpty())
+        {
+            return configuredProfile;
+        }
+
+        Path configuredPath = Paths.get(configuredProfile).toAbsolutePath().normalize();
+        if (Files.isDirectory(configuredPath))
+        {
+            return configuredPath.toString();
+        }
+
+        Path workingDirectory = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
+        Path parentDirectory = workingDirectory.getParent();
+        if (parentDirectory != null)
+        {
+            Path repoProfilePath = parentDirectory.resolve("demo-assets").resolve("uploadPath").normalize();
+            if (Files.isDirectory(repoProfilePath))
+            {
+                return repoProfilePath.toString();
+            }
+        }
+
+        return configuredPath.toString();
     }
 }

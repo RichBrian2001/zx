@@ -4,6 +4,7 @@ import { getRouters } from '@/api/menu'
 import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView'
 import InnerLink from '@/layout/components/InnerLink'
+import { isExternal } from '@/utils/validate'
 
 const permission = {
   state: {
@@ -37,7 +38,7 @@ const permission = {
           const sdata = JSON.parse(JSON.stringify(res.data))
           const rdata = JSON.parse(JSON.stringify(res.data))
           const sidebarRoutes = filterAsyncRouter(sdata)
-          const rewriteRoutes = filterAsyncRouter(rdata, false, true)
+          const rewriteRoutes = normalizeRewriteRoutes(filterAsyncRouter(rdata, false, true))
           const asyncRoutes = filterDynamicRoutes(dynamicRoutes)
           rewriteRoutes.push({ path: '*', redirect: '/404', hidden: true })
           router.addRoutes(asyncRoutes)
@@ -83,7 +84,9 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
 function filterChildren(childrenMap, lastRouter = false) {
   var children = []
   childrenMap.forEach(el => {
-    el.path = lastRouter ? lastRouter.path + '/' + el.path : el.path
+    const childPath = el.path || ''
+    const isAbsolutePath = typeof childPath === 'string' && childPath.startsWith('/')
+    el.path = lastRouter && !isAbsolutePath && !isExternal(childPath) ? lastRouter.path + '/' + childPath : childPath
     if (el.children && el.children.length && el.component === 'ParentView') {
       children = children.concat(filterChildren(el.children, el))
     } else {
@@ -91,6 +94,67 @@ function filterChildren(childrenMap, lastRouter = false) {
     }
   })
   return children
+}
+
+function normalizeRewriteRoutes(routes) {
+  const usedNames = collectRouteNames(constantRoutes)
+  collectRouteNames(dynamicRoutes, usedNames)
+  return normalizeRouteTree(routes, usedNames)
+}
+
+function normalizeRouteTree(routes, usedNames) {
+  return routes.reduce((list, route) => {
+    if (isExternal(route.path)) {
+      return list
+    }
+    const normalizedRoute = { ...route }
+    if (normalizedRoute.name) {
+      normalizedRoute.name = ensureUniqueRouteName(normalizedRoute, usedNames)
+    }
+    if (normalizedRoute.children && normalizedRoute.children.length) {
+      normalizedRoute.children = normalizeRouteTree(normalizedRoute.children, usedNames)
+    }
+    list.push(normalizedRoute)
+    return list
+  }, [])
+}
+
+function ensureUniqueRouteName(route, usedNames) {
+  if (!usedNames.has(route.name)) {
+    usedNames.add(route.name)
+    return route.name
+  }
+  const baseName = buildRouteNameFromPath(route.path) || route.name
+  let uniqueName = baseName
+  let suffix = 2
+  while (usedNames.has(uniqueName)) {
+    uniqueName = `${baseName}${suffix}`
+    suffix += 1
+  }
+  usedNames.add(uniqueName)
+  return uniqueName
+}
+
+function buildRouteNameFromPath(routePath) {
+  return String(routePath || '')
+    .split(/[/:.?=#&_-]+/)
+    .filter(Boolean)
+    .map(segment => segment.replace(/[^a-zA-Z0-9]/g, ''))
+    .filter(Boolean)
+    .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join('')
+}
+
+function collectRouteNames(routes, usedNames = new Set()) {
+  routes.forEach(route => {
+    if (route.name) {
+      usedNames.add(route.name)
+    }
+    if (route.children && route.children.length) {
+      collectRouteNames(route.children, usedNames)
+    }
+  })
+  return usedNames
 }
 
 // 动态路由遍历，验证是否具备权限

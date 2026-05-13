@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxUserProfileMapper">
+
+    <resultMap type="ZxUserProfile" id="ZxUserProfileResult">
+        <id property="profileId" column="profile_id" />
+        <result property="visitorUid" column="visitor_uid" />
+        <result property="latestQuestionnaireId" column="latest_questionnaire_id" />
+        <result property="questionnaireId" column="questionnaire_id" />
+        <result property="profileJson" column="profile_json" />
+        <result property="lightTagCode" column="light_tag_code" />
+        <result property="waterTagCode" column="water_tag_code" />
+        <result property="spaceTagCode" column="space_tag_code" />
+        <result property="styleTagCode" column="style_tag_code" />
+        <result property="budgetLevel" column="budget_level" />
+        <result property="petPreference" column="pet_preference" />
+        <result property="carePreference" column="care_preference" />
+        <result property="lastRecommendTime" column="last_recommend_time" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="answerJson" column="answer_json" />
+        <result property="environmentSummary" column="environment_summary" />
+        <result property="preferenceSummary" column="preference_summary" />
+        <result property="budgetValue" column="budget_value" />
+        <result property="submitTime" column="submit_time" />
+    </resultMap>
+
+    <sql id="selectZxUserProfileVo">
+         select p.profile_id, p.visitor_uid, p.latest_questionnaire_id, p.latest_questionnaire_id as questionnaire_id,
+             p.profile_json, p.light_tag_code, p.water_tag_code,
+               p.space_tag_code, p.style_tag_code, p.budget_level, p.pet_preference, p.care_preference,
+               p.last_recommend_time, p.create_time, p.update_time,
+               q.answer_json, q.environment_summary, q.preference_summary, q.budget_value, q.submit_time
+        from zx_user_profile p
+        left join zx_questionnaire_record q on p.latest_questionnaire_id = q.questionnaire_id
+    </sql>
+
+    <select id="selectZxUserProfileList" parameterType="ZxUserProfile" resultMap="ZxUserProfileResult">
+        <include refid="selectZxUserProfileVo" />
+        where 1 = 1
+        <if test="visitorUid != null and visitorUid != ''">and p.visitor_uid like concat('%', #{visitorUid}, '%')</if>
+        <if test="lightTagCode != null and lightTagCode != ''">and p.light_tag_code = #{lightTagCode}</if>
+        <if test="spaceTagCode != null and spaceTagCode != ''">and p.space_tag_code = #{spaceTagCode}</if>
+        <if test="budgetLevel != null and budgetLevel != ''">and p.budget_level = #{budgetLevel}</if>
+        <if test="petPreference != null and petPreference != ''">and p.pet_preference = #{petPreference}</if>
+        <if test="carePreference != null and carePreference != ''">and p.care_preference = #{carePreference}</if>
+        <if test="params.beginTime != null and params.beginTime != ''">and p.last_recommend_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null and params.endTime != ''">and p.last_recommend_time &lt;= #{params.endTime}</if>
+        order by p.last_recommend_time desc, p.profile_id desc
+    </select>
+
+    <select id="selectZxUserProfileById" parameterType="Long" resultMap="ZxUserProfileResult">
+        <include refid="selectZxUserProfileVo" />
+        where p.profile_id = #{profileId}
+    </select>
+
+    <select id="selectZxUserProfileByVisitorUid" parameterType="String" resultMap="ZxUserProfileResult">
+        <include refid="selectZxUserProfileVo" />
+        where p.visitor_uid = #{visitorUid}
+        limit 1
+    </select>
+
+    <insert id="insertZxUserProfile" parameterType="ZxUserProfile" useGeneratedKeys="true" keyProperty="profileId">
+        insert into zx_user_profile (visitor_uid, latest_questionnaire_id, profile_json, light_tag_code, water_tag_code, space_tag_code, style_tag_code, budget_level, pet_preference, care_preference, last_recommend_time, create_time, update_time)
+        values (#{visitorUid}, #{latestQuestionnaireId}, #{profileJson}, #{lightTagCode}, #{waterTagCode}, #{spaceTagCode}, #{styleTagCode}, #{budgetLevel}, #{petPreference}, #{carePreference}, #{lastRecommendTime}, sysdate(), sysdate())
+    </insert>
+
+    <update id="updateZxUserProfile" parameterType="ZxUserProfile">
+        update zx_user_profile
+        set latest_questionnaire_id = #{latestQuestionnaireId},
+            profile_json = #{profileJson},
+            light_tag_code = #{lightTagCode},
+            water_tag_code = #{waterTagCode},
+            space_tag_code = #{spaceTagCode},
+            style_tag_code = #{styleTagCode},
+            budget_level = #{budgetLevel},
+            pet_preference = #{petPreference},
+            care_preference = #{carePreference},
+            last_recommend_time = #{lastRecommendTime},
+            update_time = sysdate()
+        where profile_id = #{profileId}
+    </update>
+
+</mapper>

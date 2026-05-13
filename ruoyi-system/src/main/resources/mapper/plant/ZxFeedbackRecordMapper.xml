@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxFeedbackRecordMapper">
+
+    <resultMap type="ZxFeedbackRecord" id="ZxFeedbackRecordResult">
+        <id property="feedbackId" column="feedback_id" />
+        <result property="visitorUid" column="visitor_uid" />
+        <result property="recordId" column="record_id" />
+        <result property="plantId" column="plant_id" />
+        <result property="plantName" column="plant_name" />
+        <result property="feedbackType" column="feedback_type" />
+        <result property="feedbackReason" column="feedback_reason" />
+        <result property="extraNote" column="extra_note" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <select id="selectZxFeedbackRecordList" parameterType="ZxFeedbackRecord" resultMap="ZxFeedbackRecordResult">
+        select f.feedback_id, f.visitor_uid, f.record_id, f.plant_id, p.plant_name, f.feedback_type,
+               f.feedback_reason, f.extra_note, f.create_time
+        from zx_feedback_record f
+        left join zx_plant p on f.plant_id = p.plant_id
+        where 1 = 1
+        <if test="visitorUid != null and visitorUid != ''">and f.visitor_uid like concat('%', #{visitorUid}, '%')</if>
+        <if test="recordId != null">and f.record_id = #{recordId}</if>
+        <if test="plantId != null">and f.plant_id = #{plantId}</if>
+        <if test="feedbackType != null and feedbackType != ''">and f.feedback_type = #{feedbackType}</if>
+        <if test="params.beginTime != null and params.beginTime != ''">and f.create_time &gt;= #{params.beginTime}</if>
+        <if test="params.endTime != null and params.endTime != ''">and f.create_time &lt;= #{params.endTime}</if>
+        order by f.create_time desc, f.feedback_id desc
+    </select>
+
+    <select id="selectZxFeedbackRecordById" parameterType="Long" resultMap="ZxFeedbackRecordResult">
+        select f.feedback_id, f.visitor_uid, f.record_id, f.plant_id, p.plant_name, f.feedback_type,
+               f.feedback_reason, f.extra_note, f.create_time
+        from zx_feedback_record f
+        left join zx_plant p on f.plant_id = p.plant_id
+        where f.feedback_id = #{feedbackId}
+    </select>
+
+    <insert id="insertZxFeedbackRecord" parameterType="ZxFeedbackRecord" useGeneratedKeys="true" keyProperty="feedbackId">
+        insert into zx_feedback_record (visitor_uid, record_id, plant_id, feedback_type, feedback_reason, extra_note, create_time)
+        values (#{visitorUid}, #{recordId}, #{plantId}, #{feedbackType}, #{feedbackReason}, #{extraNote}, sysdate())
+    </insert>
+
+</mapper>

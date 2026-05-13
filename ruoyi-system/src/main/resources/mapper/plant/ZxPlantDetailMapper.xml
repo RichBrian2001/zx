@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZxPlantDetailMapper">
+
+    <resultMap type="ZxPlantDetail" id="ZxPlantDetailResult">
+        <id property="detailId" column="detail_id" />
+        <result property="plantId" column="plant_id" />
+        <result property="plantName" column="plant_name" />
+        <result property="coverImage" column="cover_image" />
+        <result property="categoryName" column="category_name" />
+        <result property="lightRequirement" column="light_requirement" />
+        <result property="waterRequirement" column="water_requirement" />
+        <result property="temperatureRange" column="temperature_range" />
+        <result property="humidityRequirement" column="humidity_requirement" />
+        <result property="growCycle" column="grow_cycle" />
+        <result property="careTips" column="care_tips" />
+        <result property="riskTips" column="risk_tips" />
+        <result property="displayContent" column="display_content" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <select id="selectZxPlantDetailByPlantId" parameterType="Long" resultMap="ZxPlantDetailResult">
+        select d.detail_id, d.plant_id, p.plant_name, p.cover_image, c.category_name, d.light_requirement,
+               d.water_requirement, d.temperature_range, d.humidity_requirement, d.grow_cycle, d.care_tips,
+               d.risk_tips, d.display_content, d.create_by, d.create_time, d.update_by, d.update_time, d.remark
+        from zx_plant_detail d
+        left join zx_plant p on d.plant_id = p.plant_id
+        left join zx_plant_category c on p.category_id = c.category_id
+        where d.plant_id = #{plantId}
+    </select>
+
+    <insert id="insertZxPlantDetail" parameterType="ZxPlantDetail" useGeneratedKeys="true" keyProperty="detailId">
+        insert into zx_plant_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            plant_id,
+            <if test="lightRequirement != null">light_requirement,</if>
+            <if test="waterRequirement != null">water_requirement,</if>
+            <if test="temperatureRange != null">temperature_range,</if>
+            <if test="humidityRequirement != null">humidity_requirement,</if>
+            <if test="growCycle != null">grow_cycle,</if>
+            <if test="careTips != null">care_tips,</if>
+            <if test="riskTips != null">risk_tips,</if>
+            <if test="displayContent != null">display_content,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{plantId},
+            <if test="lightRequirement != null">#{lightRequirement},</if>
+            <if test="waterRequirement != null">#{waterRequirement},</if>
+            <if test="temperatureRange != null">#{temperatureRange},</if>
+            <if test="humidityRequirement != null">#{humidityRequirement},</if>
+            <if test="growCycle != null">#{growCycle},</if>
+            <if test="careTips != null">#{careTips},</if>
+            <if test="riskTips != null">#{riskTips},</if>
+            <if test="displayContent != null">#{displayContent},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            sysdate()
+        </trim>
+    </insert>
+
+    <update id="updateZxPlantDetail" parameterType="ZxPlantDetail">
+        update zx_plant_detail
+        <set>
+            <if test="lightRequirement != null">light_requirement = #{lightRequirement},</if>
+            <if test="waterRequirement != null">water_requirement = #{waterRequirement},</if>
+            <if test="temperatureRange != null">temperature_range = #{temperatureRange},</if>
+            <if test="humidityRequirement != null">humidity_requirement = #{humidityRequirement},</if>
+            <if test="growCycle != null">grow_cycle = #{growCycle},</if>
+            <if test="careTips != null">care_tips = #{careTips},</if>
+            <if test="riskTips != null">risk_tips = #{riskTips},</if>
+            <if test="displayContent != null">display_content = #{displayContent},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where detail_id = #{detailId}
+    </update>
+
+</mapper>

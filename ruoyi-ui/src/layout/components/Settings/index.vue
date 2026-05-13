@@ -269,29 +269,19 @@ export default {
       if (!this.tagsViewPersist) {
         this.$cache.local.remove('tags-view-visited')
       }
-      this.$cache.local.set(
-        "layout-setting",
-        `{
-            "navType":${this.navType},
-            "tagsView":${this.tagsView},
-            "tagsIcon":${this.tagsIcon},
-            "tagsViewStyle":"${this.tagsViewStyle}",
-            "tagsViewPersist":${this.tagsViewPersist},
-            "fixedHeader":${this.fixedHeader},
-            "sidebarLogo":${this.sidebarLogo},
-            "dynamicTitle":${this.dynamicTitle},
-            "footerVisible":${this.footerVisible},
-            "sideTheme":"${this.sideTheme}",
-            "theme":"${this.theme}"
-          }`
-      )
-      setTimeout(this.$modal.closeLoading(), 1000)
+      this.$store.dispatch('settings/persistSettings')
+      setTimeout(() => {
+        this.$modal.closeLoading()
+        this.$modal.msgSuccess('布局配置已保存')
+      }, 300)
     },
     resetSetting() {
       this.$modal.loading("正在清除设置缓存并刷新，请稍候...")
       this.$cache.local.remove('tags-view-visited')
       this.$cache.local.remove("layout-setting")
-      setTimeout("window.location.reload()", 1000)
+      setTimeout(() => {
+        window.location.reload()
+      }, 300)
     }
   }
 }
