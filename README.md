@@ -1,115 +1,206 @@
-<p align="center">
-	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
-</p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.9.2</h1>
-<h4 align="center">基于SpringBoot+Vue前后端分离的Java快速开发框架</h4>
-<p align="center">
-	<a href="https://gitee.com/y_project/RuoYi-Vue/stargazers"><img src="https://gitee.com/y_project/RuoYi-Vue/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.9.2-brightgreen.svg"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-</p>
+# 植物个性化推荐系统
 
-## 平台简介
+本项目基于 RuoYi-Vue 二次开发，面向植物选购与养护场景，提供“问卷画像 + 推荐规则 + 植物内容 + 环境问答”的一体化演示系统。系统分为用户端与管理端两部分：用户端负责填写问卷、查看推荐结果、浏览植物详情、收藏反馈和植物百科问答；管理端负责植物资料维护、养护配置、标签规则、内容运营、导入任务和结果回查。
 
-若依是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+## 系统功能介绍
 
-* 前端采用Vue、Element UI。
-* 后端采用Spring Boot、Spring Security、Redis & Jwt。
-* 权限认证使用Jwt，支持多终端认证系统。
-* 支持加载动态权限菜单，多方式轻松权限控制。
-* 高效率开发，使用代码生成器可以一键生成前后端代码。
-* 阿里云折扣场：[点我进入](http://aly.ruoyi.vip)，腾讯云秒杀场：[点我进入](http://txy.ruoyi.vip)&nbsp;&nbsp;
+### 用户端功能
 
-# 版本分支
+1. 首页：展示系统介绍、推荐入口与内容卡片。
+2. 问卷推荐：采集场景、预算、养护能力、光照等条件，生成个性化推荐结果。
+3. 推荐结果：展示 Top N 推荐植物、命中原因、养护风险与推荐说明。
+4. 植物详情：查看植物基础信息、养护要点、标签、相关文章与相似植物。
+5. 所有植物：按卡片方式浏览全部已上架植物。
+6. 历史记录：回看当前用户历史推荐结果。
+7. 收藏与反馈：收藏植物并对推荐结果提交满意度反馈。
+8. 植百科问答：结合位置、天气、温湿度等环境上下文给出养护建议；当未配置大模型时，系统自动使用本地兜底回答。
 
-RuoYi-Vue 后端项目提供 Spring Boot 2.x / 3.x / 4.x 多版本分支的并行维护。
+### 管理端功能
 
-| 名称              | 说明                      | 地址                                                    |
-| :---------------- | :------------------------ | :------------------------------------------------------ |
-| master 默认分支   | Spring Boot 4.x (JDK 17+) | https://gitee.com/y_project/RuoYi-Vue                   |
-| springboot3 分支  | Spring Boot 3.x (JDK 17+) | https://gitee.com/y_project/RuoYi-Vue/tree/springboot3  |
-| springboot2 分支  | Spring Boot 2.x (JDK 8+)  | https://gitee.com/y_project/RuoYi-Vue/tree/springboot2  |  
+1. 系统工作台：查看植物、推荐、反馈、内容等统计总览。
+2. 分类管理：维护植物分类树、排序和状态。
+3. 植物库管理：维护植物基础信息、封面、摘要和状态。
+4. 养护配置：维护光照、浇水、温湿度、风险提示等养护参数。
+5. 标签字典与植物标签配置：维护标签定义并建立植物与标签关系。
+6. 推荐规则管理：配置过滤规则、权重规则与命中说明。
+7. 用户画像与推荐记录回查：查看问卷快照、画像摘要、推荐记录和明细结果。
+8. 反馈管理：查看用户满意度与原因。
+9. 内容管理：维护植物百科与养护文章。
+10. 导入任务：上传导入模板并查看导入结果。
 
-RuoYi-Vue 前端项目提供 Vue 2.x / 3.x / JavaScript TypeScript 版本均可混用搭配
+## 环境要求
 
-| 项目名称      | **RuoYi-Vue** | **RuoYi-Vue3** | **RuoYi-Vue3-TypeScript**   |
-| :---          | :---          | :---           | :---                        |
-| **前端框架**  | Vue 2        | Vue 3          | Vue 3                       |
-| **脚本语言**  | JavaScript   | JavaScript     | TypeScript                  |
-| **构建工具**  | Vue CLI      | Vite           | Vite                        |
-| **UI 组件库** | Element UI   | Element Plus   | Element Plus                |
-| **状态管理**  | Vuex         | Pinia          | Pinia                       |
-| **路由管理**  | Vue Router 3 | Vue Router 4   | Vue Router 4                |
-| **核心特点**  | 1. 技术栈经典稳定<br>2. 社区资料丰富<br>3. 当前维护重心已转移 | 1. 现代前端技术栈<br>2. 开发体验与性能更优<br>3. 官方主推的活跃版本 | 1. 类型加持，减少沟通成本<br>2. 开发时有提示，效率更高<br>3. 多人协作企业级开发项目 |
-| **仓库地址**  | [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) | [RuoYi-Vue3](https://gitcode.com/yangzongzhuan/RuoYi-Vue3) | [RuoYi-Vue3-TypeScript](https://gitcode.com/yangzongzhuan/RuoYi-Vue3/tree/typescript) |
+建议按照以下版本准备环境，确保与当前项目配置一致：
 
-## 内置功能
+| 组件 | 建议版本 | 说明 |
+| --- | --- | --- |
+| JDK | 17 | 根工程 `pom.xml` 当前为 Spring Boot 4.x / Java 17 |
+| Maven | 3.9.x | 用于后端依赖构建与启动 |
+| MySQL | 8.0+ | 默认库名为 `proj_zx` |
+| Redis | 6.x / 7.x | 默认地址为 `localhost:6379` |
+| Node.js | 18 LTS 或 20 LTS | 用于前端开发启动 |
+| npm | 9+ 或 10+ | 首次运行前端需安装依赖 |
 
-1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
-2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
-3.  岗位管理：配置系统用户所属担任职务。
-4.  菜单管理：配置系统菜单，操作权限，按钮权限标识等。
-5.  角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
-6.  字典管理：对系统中经常使用的一些较为固定的数据进行维护。
-7.  参数管理：对系统动态配置常用参数。
-8.  通知公告：系统通知公告信息发布维护。
-9.  操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
-10. 登录日志：系统登录日志记录查询包含登录异常。
-11. 在线用户：当前系统中活跃用户状态监控。
-12. 定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
-13. 代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。
-14. 系统接口：根据业务代码自动生成相关的api接口文档。
-15. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
-16. 缓存监控：对系统的缓存信息查询，命令统计等。
-17. 在线构建器：拖动表单元素生成相应的HTML代码。
-18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+## 目录说明
 
-## 在线体验
+- `ruoyi-admin`：后端启动模块。
+- `ruoyi-system`：植物业务领域模型、Mapper 与 Service。
+- `ruoyi-ui`：前端 Vue 项目。
+- `sql/proj_zx.sql`：当前演示环境推荐使用的完整数据库初始化脚本。
+- `sql/ry_20260417.sql`：若依基础库脚本。
+- `sql/zx_plant_demo_00_execute.sql` ~ `03_seed.sql`：植物业务增量脚本与演示数据脚本。
+- `demo-assets/uploadPath`：演示图片、导入模板等运行期静态资源。
 
-- admin/admin123  
-- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
+## 部署方式
 
-演示地址：http://vue.ruoyi.vip  
-文档地址：http://doc.ruoyi.vip
+下面这套流程适用于本地演示部署，也是当前项目最直接、最稳定的启动方式。
 
-## 演示图
+### 1. 准备数据库
 
-<table>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/cd1f90be5f2684f4560c9519c0f2a232ee8.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/1cbcf0e6f257c7d3a063c0e3f2ff989e4b3.jpg"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8074972883b5ba0622e13246738ebba237a.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-9f88719cdfca9af2e58b352a20e23d43b12.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-39bf2584ec3a529b0d5a3b70d15c9b37646.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-936ec82d1f4872e1bc980927654b6007307.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-b2d62ceb95d2dd9b3fbe157bb70d26001e9.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d67451d308b7a79ad6819723396f7c3d77a.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/5e8c387724954459291aafd5eb52b456f53.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/644e78da53c2e92a95dfda4f76e6d117c4b.jpg"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8370a0d02977eebf6dbf854c8450293c937.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-49003ed83f60f633e7153609a53a2b644f7.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d4fe726319ece268d4746602c39cffc0621.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c195234bbcd30be6927f037a6755e6ab69c.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/b6115bc8c31de52951982e509930b20684a.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
-    </tr>
-</table>
+1. 安装并启动 MySQL。
+2. 创建数据库 `proj_zx`，字符集建议使用 `utf8mb4`。
+3. 推荐直接导入 `sql/proj_zx.sql`，该文件已经包含当前演示所需的系统表、业务表、菜单和样例数据。
+4. 如果你希望从若依基础库开始分步安装，则先执行 `sql/ry_20260417.sql`，再按 `sql/zx_plant_demo_执行说明.md` 中的顺序执行植物业务脚本。
+
+示例：
+
+```sql
+CREATE DATABASE proj_zx DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 2. 修改后端配置
+
+根据本机环境修改 `ruoyi-admin/src/main/resources/application-druid.yml` 中的数据库连接信息：
+
+- `spring.datasource.druid.master.url`
+- `spring.datasource.druid.master.username`
+- `spring.datasource.druid.master.password`
+
+如果 Redis 不是本机默认配置，还需要修改 `ruoyi-admin/src/main/resources/application.yml` 中的以下项：
+
+- `spring.data.redis.host`
+- `spring.data.redis.port`
+- `spring.data.redis.password`
+- `spring.data.redis.database`
+
+### 3. 配置运行期静态资源目录
+
+系统的图片、导入模板和上传文件默认指向仓库内的 `demo-assets/uploadPath`。当前默认配置如下：
+
+```yaml
+ruoyi:
+  profile: ${RUOYI_PROFILE:${user.dir}/demo-assets/uploadPath}
+```
+
+说明：
+
+1. 如果直接在项目根目录启动，系统会使用仓库内的 `demo-assets/uploadPath`。
+2. 如果从 `ruoyi-admin` 模块直接启动，代码会自动回退到上一级目录中的 `demo-assets/uploadPath`，当前没有发现会影响启动的相对路径问题。
+3. 如果要部署到其他电脑，最稳妥的方式是显式设置环境变量 `RUOYI_PROFILE`，把它指向一份真实存在的绝对路径目录。
+
+Windows PowerShell 示例：
+
+```powershell
+$env:RUOYI_PROFILE = 'D:\plant-demo\uploadPath'
+```
+
+### 4. 启动 Redis
+
+启动 Redis 服务，并确保后端配置中的地址和端口可连通。
+
+### 5. 启动后端
+
+可以通过 IDEA 直接运行 `ruoyi-admin` 模块中的 `RuoYiApplication.java`，也可以通过 Maven 启动。
+
+Maven 启动示例：
+
+```powershell
+mvn -f ruoyi-admin\pom.xml -DskipTests spring-boot:run
+```
+
+默认后端访问地址：
+
+- 接口地址：`http://localhost:8081`
+- Swagger 地址：`http://localhost:8081/swagger-ui.html`
+
+### 6. 启动前端
+
+进入 `ruoyi-ui` 目录后执行以下命令：
+
+```powershell
+npm install
+npm run dev
+```
 
 
-## 若依前后端分离交流群
+### 7. 访问系统
 
-QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) [![加入QQ群](https://img.shields.io/badge/已满-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu) [![加入QQ群](https://img.shields.io/badge/已满-201396349-blue.svg)](https://jq.qq.com/?_wv=1027&k=5vYAqA05) [![加入QQ群](https://img.shields.io/badge/已满-101456076-blue.svg)](https://jq.qq.com/?_wv=1027&k=kOIINEb5) [![加入QQ群](https://img.shields.io/badge/已满-101539465-blue.svg)](https://jq.qq.com/?_wv=1027&k=UKtX5jhs) [![加入QQ群](https://img.shields.io/badge/已满-264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ) [![加入QQ群](https://img.shields.io/badge/已满-167385320-blue.svg)](https://jq.qq.com/?_wv=1027&k=SWCtLnMz) [![加入QQ群](https://img.shields.io/badge/已满-104748341-blue.svg)](https://jq.qq.com/?_wv=1027&k=96Dkdq0k) [![加入QQ群](https://img.shields.io/badge/已满-160110482-blue.svg)](https://jq.qq.com/?_wv=1027&k=0fsNiYZt) [![加入QQ群](https://img.shields.io/badge/已满-170801498-blue.svg)](https://jq.qq.com/?_wv=1027&k=7xw4xUG1) [![加入QQ群](https://img.shields.io/badge/已满-108482800-blue.svg)](https://jq.qq.com/?_wv=1027&k=eCx8eyoJ) [![加入QQ群](https://img.shields.io/badge/已满-101046199-blue.svg)](https://jq.qq.com/?_wv=1027&k=SpyH2875) [![加入QQ群](https://img.shields.io/badge/已满-136919097-blue.svg)](https://jq.qq.com/?_wv=1027&k=tKEt51dz) [![加入QQ群](https://img.shields.io/badge/已满-143961921-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=0vBbSb0ztbBgVtn3kJS-Q4HUNYwip89G&authKey=8irq5PhutrZmWIvsUsklBxhj57l%2F1nOZqjzigkXZVoZE451GG4JHPOqW7AW6cf0T&noverify=0&group_code=143961921) [![加入QQ群](https://img.shields.io/badge/已满-174951577-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=ZFAPAbp09S2ltvwrJzp7wGlbopsc0rwi&authKey=HB2cxpxP2yspk%2Bo3WKTBfktRCccVkU26cgi5B16u0KcAYrVu7sBaE7XSEqmMdFQp&noverify=0&group_code=174951577) [![加入QQ群](https://img.shields.io/badge/已满-161281055-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Fn2aF5IHpwsy8j6VlalNJK6qbwFLFHat&authKey=uyIT%2B97x2AXj3odyXpsSpVaPMC%2Bidw0LxG5MAtEqlrcBcWJUA%2FeS43rsF1Tg7IRJ&noverify=0&group_code=161281055) [![加入QQ群](https://img.shields.io/badge/已满-138988063-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XIzkm_mV2xTsUtFxo63bmicYoDBA6Ifm&authKey=dDW%2F4qsmw3x9govoZY9w%2FoWAoC4wbHqGal%2BbqLzoS6VBarU8EBptIgPKN%2FviyC8j&noverify=0&group_code=138988063) [![加入QQ群](https://img.shields.io/badge/已满-151450850-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=DkugnCg68PevlycJSKSwjhFqfIgrWWwR&authKey=pR1Pa5lPIeGF%2FFtIk6d%2FGB5qFi0EdvyErtpQXULzo03zbhopBHLWcuqdpwY241R%2F&noverify=0&group_code=151450850) [![加入QQ群](https://img.shields.io/badge/已满-224622315-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=F58bgRa-Dp-rsQJThiJqIYv8t4-lWfXh&authKey=UmUs4CVG5OPA1whvsa4uSespOvyd8%2FAr9olEGaWAfdLmfKQk%2FVBp2YU3u2xXXt76&noverify=0&group_code=224622315) [![加入QQ群](https://img.shields.io/badge/已满-287842588-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Nxb2EQ5qozWa218Wbs7zgBnjLSNk_tVT&authKey=obBKXj6SBKgrFTJZx0AqQnIYbNOvBB2kmgwWvGhzxR67RoRr84%2Bus5OadzMcdJl5&noverify=0&group_code=287842588) [![加入QQ群](https://img.shields.io/badge/已满-187944233-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=numtK1M_I4eVd2Gvg8qtbuL8JgX42qNh&authKey=giV9XWMaFZTY%2FqPlmWbkB9g3fi0Ev5CwEtT9Tgei0oUlFFCQLDp4ozWRiVIzubIm&noverify=0&group_code=187944233) [![加入QQ群](https://img.shields.io/badge/已满-228578329-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=G6r5KGCaa3pqdbUSXNIgYloyb8e0_L0D&authKey=4w8tF1eGW7%2FedWn%2FHAypQksdrML%2BDHolQSx7094Agm7Luakj9EbfPnSTxSi2T1LQ&noverify=0&group_code=228578329) [![加入QQ群](https://img.shields.io/badge/已满-191164766-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=GsOo-OLz53J8y_9TPoO6XXSGNRTgbFxA&authKey=R7Uy%2Feq%2BZsoKNqHvRKhiXpypW7DAogoWapOawUGHokJSBIBIre2%2FoiAZeZBSLuBc&noverify=0&group_code=191164766) [![加入QQ群](https://img.shields.io/badge/已满-174569686-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=PmYavuzsOthVqfdAPbo4uAeIbu7Ttjgc&authKey=p52l8%2FXa4PS1JcEmS3VccKSwOPJUZ1ZfQ69MEKzbrooNUljRtlKjvsXf04bxNp3G&noverify=0&group_code=174569686) [![加入QQ群](https://img.shields.io/badge/127358632-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=M9y5NjAl44lAL_Vh2crmEehZU_PMU6KS&authKey=ZSDz8hEREWSaPuxQV3gEwqGIaGjfRNnkB4rJjf0IvXhrSUGSGwQFmBA%2Boe8HFxyl&noverify=0&group_code=127358632) 点击按钮入群。
+如果前端使用默认端口 80，则浏览器访问：
+
+- `http://localhost`
+
+
+
+## 生产部署补充
+
+如果用于服务器部署，建议采用以下方式：
+
+1. 后端通过 Maven 打包为 Jar，在服务器上以 Java 17 运行。
+2. 前端在 `ruoyi-ui` 下执行 `npm run build:prod` 生成 `dist` 静态文件。
+3. 使用 Nginx 托管前端 `dist` 目录，并将 `/prod-api` 反向代理到后端服务地址。
+4. 将 `RUOYI_PROFILE`、数据库、Redis 和大模型相关配置统一放入服务器环境变量或外部配置中，不要写死在源码里。
+
+## 大模型 API 配置说明
+
+植物百科问答能力使用以下配置项：
+
+- `PLANT_ASSISTANT_API_URL`
+- `BIGMODEL_API_KEY`
+- `PLANT_ASSISTANT_MODEL`
+- `PLANT_ASSISTANT_TIMEOUT_SECONDS`
+- `PLANT_ASSISTANT_REVERSE_GEOCODE_URL`
+- `PLANT_ASSISTANT_WEATHER_API_URL`
+- `PLANT_ASSISTANT_USER_AGENT`
+
+其中最关键的是 `BIGMODEL_API_KEY`。当前项目已经改为只从环境变量读取，不再在源码中保存默认密钥。
+
+Windows PowerShell 示例：
+
+```powershell
+$env:BIGMODEL_API_KEY = '你的真实大模型 API Key'
+```
+
+如果未配置该变量，植物百科问答页面仍可使用本地兜底回答，但不会调用外部大模型。
+
+## 安全与密钥说明
+
+1. 本次检查结果显示：`ruoyi-admin/src/main/resources/application.yml` 之前存在真实 `BIGMODEL_API_KEY` 默认值。
+2. 这意味着该密钥已经随源码提交进入 Git 历史；如果仓库已经推送到 GitHub，就应视为已经泄露。
+3. 我已经把源码当前版本中的默认密钥移除，但这只能阻止后续继续暴露，不能撤回历史提交里已经出现过的密钥。
+4. 你现在应该立即到大模型平台后台轮换这把 Key，并停用旧 Key。
+5. 如果需要彻底清理 GitHub 历史中的旧密钥，还需要额外执行历史改写和强推；这是单独的仓库清理动作，不属于普通 README 修改范围。
+
+## 版本一致性建议
+
+如果要保证同学克隆后的项目与本机功能尽量一致，至少要统一以下内容：
+
+1. 使用同一个 Git 提交版本，不要只说“拉最新代码”，而是固定到同一个 commit 或 release tag。
+2. 使用同一份数据库初始化数据，推荐直接使用本仓库内的 `sql/proj_zx.sql`。
+3. 使用同一份 `demo-assets/uploadPath` 目录，否则图片、导入模板和运行期素材可能不一致。
+4. 使用相同的 JDK、Maven、Node.js、npm、MySQL、Redis 版本。
+5. 使用相同的后端配置项，包括数据库、Redis、`RUOYI_PROFILE` 和大模型相关环境变量。
+6. 前端当前没有提交 `package-lock.json`，这意味着 `npm install` 时的部分间接依赖版本可能存在微小差异；如果你要进一步提高可复现性，建议后续补充并提交锁文件。
+
+## 常见问题
+
+### 问：只导入 `proj_zx.sql` 可以吗？
+
+可以。对于当前项目，这是最简洁、最接近你本机演示环境的方式。
+
+### 问：直接运行 `RuoYiApplication.java` 可以吗？
+
+可以。你的理解是正确的，这就是当前本地开发和演示最直接的启动方式之一。
+
+### 问：相对路径会不会导致图片丢失？
+
+当前主链路没有发现会阻塞启动的相对路径问题，但为了跨电脑稳定复现，仍建议在交付环境中显式配置 `RUOYI_PROFILE` 为绝对路径。

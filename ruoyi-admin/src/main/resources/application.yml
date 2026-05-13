@@ -149,7 +149,7 @@ xss:
 plant:
   assistant:
     apiUrl: ${PLANT_ASSISTANT_API_URL:https://open.bigmodel.cn/api/paas/v4/chat/completions}
-    apiKey: ${BIGMODEL_API_KEY:2979623e4ff04ded8cdcc8683128ea27.BSODSfwHa2VxzZJG}
+    apiKey: ${BIGMODEL_API_KEY:}
     model: ${PLANT_ASSISTANT_MODEL:glm-4.5-air}
     timeoutSeconds: ${PLANT_ASSISTANT_TIMEOUT_SECONDS:15}
     reverseGeocodeUrl: ${PLANT_ASSISTANT_REVERSE_GEOCODE_URL:https://nominatim.openstreetmap.org/reverse}
